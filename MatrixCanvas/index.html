@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>黑客帝国数字屏幕</title>
+	</head>
+	<body>
+		<script>
+			(function() {
+				const script = document.currentScript,
+					fontSize = script.getAttribute("size") || 16,
+					fontName = script.getAttribute("font") || "monospace";
+			
+				const canvas = document.createElement("canvas"),
+					context = canvas.getContext("2d");
+				document.body.appendChild(canvas);
+				canvas.style.cssText = "position: fixed; top: 0; left: 0; background-color: #111; z-index: -1;";
+				let W = window.innerWidth,
+					H = window.innerHeight;
+				canvas.width = W;
+				canvas.height = H;
+				let colunms = Math.floor(W / fontSize),
+					drops = [],
+					str = "QWERTYUIOPASDFGHJKLZXCVBNM!@#$%^&*()1234567890qwertyuiopasdfghjklzxcvbnm";
+				for (let i = 0; i < colunms; i++) {
+					drops.push(Math.ceil(canvas.height / fontSize) + 1);
+				}
+				alert('#'+(item=>{
+					return new Array(7-item.length).join('0')+item
+				})((Math.random()*0x1000000<<0).toString(16)))
+				setInterval(function() {
+					context.fillStyle = "rgba(0,0,0,0.025)";
+					context.fillRect(0, 0, W, H);
+					context.font = `700 ${fontSize}px ${fontName}`;
+					context.fillStyle = '#'+(item=>{
+					return new Array(7-item.length).join('0')+item
+				})((Math.random()*0x1000000<<0).toString(16));
+					for (let i = 0; i < colunms; i++) {
+						const index = Math.floor(Math.random() * str.length),
+							x = i * fontSize,
+							y = drops[i] * fontSize;
+						context.fillText(str[index], x, y);
+						if (y >= canvas.height && Math.random() > 0.99) {
+							drops[i] = 0;
+						}
+						drops[i]++;
+					}
+				}, 50);
+			
+				window.addEventListener("resize", function() {
+					W = window.innerWidth;
+					H = window.innerHeight;
+					canvas.width = W;
+					canvas.height = H;
+					colunms = Math.floor(W / fontSize);
+					drops = [];
+					for (let i = 0; i < colunms; i++) {
+						drops.push(Math.ceil(canvas.height / fontSize) + 1);
+					}
+				});
+			})();
+			// let text = ''
+			// let textX = ''
+			// let canvas = document.getElementById('canvas')
+			// let ctx = canvas.getContext('2d')
+			// canvas.width = window.innerWidth
+			// canvas.height = window.innerHeight
+			// let cW = canvas.width
+			// let cH = canvas.height
+			// ctx.fillStyle = randomColor()
+			// let words = Array(256).join('1').split('')
+			// setInterval(()=>{
+			// 	canvasDraw()
+			// },50)
+			// function canvasDraw(){
+			// ctx.fillStyle = 'rgba(0,0,0,0.25)'
+			// ctx.fillRect = (0,0,cW,cH)
+			// ctx.fillStyle = randomColor()
+			// words.map((e,index)=>{
+			// 	text = String.fromCharCode(Math.ceil(65+Math.random()*57))
+			// 	textX = index*10
+			// 	ctx.fillText(text,textX,e)
+			// 	words.[index]=(e>758+Math.random()*484 ? 0:e+10)
+			// })
+			// }
+			function randomColor(){
+				return '#'+(item=>{
+					return new Array(7-item.length).join('0')+item
+				})((Math.random()*0x1000000<<0).toString(16))
+			}
+		</script>
+	</body>
+</html>
